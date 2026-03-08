@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import DealsPage from "./pages/DealsPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import AdminPage from "./pages/AdminPage";
+import SubmitDealPage from "./pages/SubmitDealPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
