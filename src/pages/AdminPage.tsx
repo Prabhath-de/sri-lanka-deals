@@ -25,6 +25,8 @@ const statusBadge = (status: string) => {
 };
 
 const AdminPage = () => {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
   const { data: allDeals, isLoading } = useAdminDeals();
   const { data: pendingDeals } = usePendingDeals();
   const insertDeal = useInsertDeal();
