@@ -11,6 +11,7 @@ const Navbar = () => {
     { to: "/", label: "Home" },
     { to: "/deals", label: "All Deals" },
     { to: "/categories", label: "Categories" },
+    { to: "/admin", label: "Admin" },
   ];
 
   return (

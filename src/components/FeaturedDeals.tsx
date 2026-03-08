@@ -1,11 +1,21 @@
-import { MOCK_DEALS } from "@/lib/mock-data";
+import { useFeaturedDeals } from "@/hooks/use-deals";
 import DealCard from "./DealCard";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const FeaturedDeals = () => {
-  const featured = MOCK_DEALS.filter((d) => d.is_featured);
+  const { data: featured, isLoading } = useFeaturedDeals();
+
+  if (isLoading) {
+    return (
+      <section className="py-16">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">Loading deals...</div>
+      </section>
+    );
+  }
+
+  if (!featured?.length) return null;
 
   return (
     <section className="py-16">
