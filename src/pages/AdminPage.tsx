@@ -174,9 +174,14 @@ const AdminPage = () => {
             <p className="text-sm text-muted-foreground">Manage deals, review submissions</p>
           </div>
           {!showForm && (
-            <Button onClick={() => { setEditingDeal(undefined); setShowForm(true); }} className="gap-2 bg-hero-gradient text-primary-foreground">
-              <Plus className="h-4 w-4" /> Add New Deal
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => { setEditingDeal(undefined); setShowForm(true); }} className="gap-2 bg-hero-gradient text-primary-foreground">
+                <Plus className="h-4 w-4" /> Add New Deal
+              </Button>
+              <Button variant="outline" onClick={async () => { await signOut(); navigate("/"); }} className="gap-2">
+                <LogOut className="h-4 w-4" /> Sign Out
+              </Button>
+            </div>
           )}
         </div>
 
