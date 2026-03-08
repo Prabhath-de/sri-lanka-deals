@@ -96,11 +96,6 @@ const DealForm = ({ deal, onSubmit, onCancel, isSubmitting }: DealFormProps) => 
         expiry_date: format(values.expiry_date, "yyyy-MM-dd"),
         is_featured: values.is_featured,
       });
-        location: values.location || null,
-        original_url: values.original_url || null,
-        image_url,
-        expiry_date: format(values.expiry_date, "yyyy-MM-dd"),
-      });
     } catch (err) {
       setUploading(false);
       throw err;
