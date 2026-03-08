@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import DealsPage from "./pages/DealsPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import AdminPage from "./pages/AdminPage";
-import AdminLoginPage from "./pages/AdminLoginPage";
+import AuthPage from "./pages/AuthPage";
 import SubmitDealPage from "./pages/SubmitDealPage";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import NotFound from "./pages/NotFound";
@@ -25,7 +25,8 @@ const App = () => (
           <Route path="/deals" element={<DealsPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/submit" element={<SubmitDealPage />} />
-          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/admin/login" element={<AuthPage />} />
           <Route path="/admin" element={<ProtectedAdminRoute><AdminPage /></ProtectedAdminRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
