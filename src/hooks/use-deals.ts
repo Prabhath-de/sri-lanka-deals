@@ -1,5 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchDeals, fetchFeaturedDeals, insertDeal, updateDeal, deleteDeal, DbDealInsert, DbDealUpdate } from "@/lib/deals-api";
+import {
+  fetchDeals, fetchFeaturedDeals, fetchAllDealsAdmin, fetchPendingDeals,
+  insertDeal, updateDeal, deleteDeal,
+  DbDealInsert, DbDealUpdate,
+} from "@/lib/deals-api";
 
 export const useDeals = (archived = false) =>
   useQuery({
@@ -11,6 +15,18 @@ export const useFeaturedDeals = () =>
   useQuery({
     queryKey: ["deals", "featured"],
     queryFn: fetchFeaturedDeals,
+  });
+
+export const useAdminDeals = () =>
+  useQuery({
+    queryKey: ["deals", "admin"],
+    queryFn: fetchAllDealsAdmin,
+  });
+
+export const usePendingDeals = () =>
+  useQuery({
+    queryKey: ["deals", "pending"],
+    queryFn: fetchPendingDeals,
   });
 
 export const useInsertDeal = () => {

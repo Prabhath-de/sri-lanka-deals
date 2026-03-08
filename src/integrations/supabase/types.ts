@@ -29,6 +29,10 @@ export type Database = {
           is_featured: boolean
           location: string | null
           original_url: string | null
+          status: string
+          submitter_email: string | null
+          submitter_name: string | null
+          submitter_phone: string | null
           title: string
           updated_at: string
         }
@@ -46,6 +50,10 @@ export type Database = {
           is_featured?: boolean
           location?: string | null
           original_url?: string | null
+          status?: string
+          submitter_email?: string | null
+          submitter_name?: string | null
+          submitter_phone?: string | null
           title: string
           updated_at?: string
         }
@@ -63,6 +71,10 @@ export type Database = {
           is_featured?: boolean
           location?: string | null
           original_url?: string | null
+          status?: string
+          submitter_email?: string | null
+          submitter_name?: string | null
+          submitter_phone?: string | null
           title?: string
           updated_at?: string
         }

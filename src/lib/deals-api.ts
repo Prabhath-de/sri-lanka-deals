@@ -5,22 +5,49 @@ export type DbDeal = Database["public"]["Tables"]["deals"]["Row"];
 export type DbDealInsert = Database["public"]["Tables"]["deals"]["Insert"];
 export type DbDealUpdate = Database["public"]["Tables"]["deals"]["Update"];
 
+/** Fetch approved, non-archived deals for public pages */
 export const fetchDeals = async (archived = false) => {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from("deals")
     .select("*")
-    .eq("is_archived", archived)
+    .eq("is_archived", archived) as any)
+    .eq("status", "approved")
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data as DbDeal[];
 };
 
+/** Fetch featured approved deals */
 export const fetchFeaturedDeals = async () => {
+  const { data, error } = await (supabase
+    .from("deals")
+    .select("*")
+    .eq("is_featured", true) as any)
+    .eq("is_archived", false)
+    .eq("status", "approved")
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return data as DbDeal[];
+};
+
+/** Fetch all deals for admin (any status) */
+export const fetchAllDealsAdmin = async () => {
   const { data, error } = await supabase
     .from("deals")
     .select("*")
-    .eq("is_featured", true)
     .eq("is_archived", false)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return data as DbDeal[];
+};
+
+/** Fetch pending deals for admin review */
+export const fetchPendingDeals = async () => {
+  const { data, error } = await (supabase
+    .from("deals")
+    .select("*")
+    .eq("is_archived", false) as any)
+    .eq("status", "pending")
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data as DbDeal[];
