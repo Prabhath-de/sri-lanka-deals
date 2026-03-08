@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CATEGORIES } from "@/lib/types";
-import { MOCK_DEALS } from "@/lib/mock-data";
+import { useDeals } from "@/hooks/use-deals";
 import { motion } from "framer-motion";
 
 const categoryConfig: Record<string, { emoji: string; gradient: string }> = {
@@ -17,19 +17,17 @@ const categoryConfig: Record<string, { emoji: string; gradient: string }> = {
 
 const CategoriesPage = () => {
   const navigate = useNavigate();
+  const { data: deals } = useDeals(false);
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="mb-8 font-heading text-3xl font-bold text-foreground">
-          Deal Categories
-        </h1>
-
+        <h1 className="mb-8 font-heading text-3xl font-bold text-foreground">Deal Categories</h1>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat, i) => {
             const config = categoryConfig[cat];
-            const count = MOCK_DEALS.filter((d) => d.category === cat && !d.is_archived).length;
+            const count = deals?.filter((d) => d.category === cat).length || 0;
             return (
               <motion.button
                 key={cat}
@@ -39,9 +37,7 @@ const CategoriesPage = () => {
                 onClick={() => navigate(`/deals?category=${cat}`)}
                 className="group flex items-center gap-5 rounded-xl border border-border bg-card p-6 text-left transition-all hover:-translate-y-1 hover:shadow-deal-card-hover"
               >
-                <div
-                  className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-md transition-transform group-hover:scale-110`}
-                >
+                <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-md transition-transform group-hover:scale-110`}>
                   {config.emoji}
                 </div>
                 <div>
