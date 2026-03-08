@@ -13,6 +13,7 @@ const DealsPage = () => {
   const [category, setCategory] = useState(searchParams.get("category") || "all");
   const [city, setCity] = useState("all");
   const [minDiscount, setMinDiscount] = useState("0");
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const filteredDeals = useMemo(() => {
     return MOCK_DEALS.filter((deal) => {
@@ -29,9 +30,22 @@ const DealsPage = () => {
       if (category !== "all" && deal.category !== category) return false;
       if (city !== "all" && deal.city !== city) return false;
       if (deal.discount_percentage < Number(minDiscount)) return false;
+
+      // Date filter: show deals that are active on the selected date
+      if (selectedDate) {
+        const created = new Date(deal.created_at);
+        const expiry = new Date(deal.expiry_date);
+        const selected = new Date(selectedDate);
+        // Reset times to compare dates only
+        created.setHours(0, 0, 0, 0);
+        expiry.setHours(23, 59, 59, 999);
+        selected.setHours(12, 0, 0, 0);
+        if (selected < created || selected > expiry) return false;
+      }
+
       return true;
     });
-  }, [query, category, city, minDiscount]);
+  }, [query, category, city, minDiscount, selectedDate]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -51,6 +65,8 @@ const DealsPage = () => {
             setCity={setCity}
             minDiscount={minDiscount}
             setMinDiscount={setMinDiscount}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
           />
         </div>
 

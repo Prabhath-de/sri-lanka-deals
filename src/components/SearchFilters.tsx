@@ -1,6 +1,12 @@
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 import { CATEGORIES, CITIES } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface SearchFiltersProps {
   query: string;
@@ -11,10 +17,13 @@ interface SearchFiltersProps {
   setCity: (v: string) => void;
   minDiscount: string;
   setMinDiscount: (v: string) => void;
+  selectedDate: Date | undefined;
+  setSelectedDate: (v: Date | undefined) => void;
 }
 
 const SearchFilters = ({
   query, setQuery, category, setCategory, city, setCity, minDiscount, setMinDiscount,
+  selectedDate, setSelectedDate,
 }: SearchFiltersProps) => {
   return (
     <div className="rounded-xl border border-border bg-card p-4 shadow-deal-card">
@@ -30,6 +39,31 @@ const SearchFilters = ({
             className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
+
+        {/* Date Picker */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full justify-start text-left font-normal md:w-44",
+                !selectedDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+              initialFocus
+              className={cn("p-3 pointer-events-auto")}
+            />
+          </PopoverContent>
+        </Popover>
 
         {/* Category */}
         <Select value={category} onValueChange={setCategory}>
@@ -71,6 +105,21 @@ const SearchFilters = ({
           </SelectContent>
         </Select>
       </div>
+
+      {/* Active date filter indicator */}
+      {selectedDate && (
+        <div className="mt-3 flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">
+            Showing deals active on <span className="font-medium text-foreground">{format(selectedDate, "MMMM d, yyyy")}</span>
+          </span>
+          <button
+            onClick={() => setSelectedDate(undefined)}
+            className="rounded-md px-2 py-0.5 text-xs font-medium text-primary hover:bg-accent"
+          >
+            Clear
+          </button>
+        </div>
+      )}
     </div>
   );
 };
