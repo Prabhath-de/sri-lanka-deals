@@ -7,12 +7,13 @@ export type DbDealUpdate = Database["public"]["Tables"]["deals"]["Update"];
 
 /** Fetch approved, non-archived deals for public pages */
 export const fetchDeals = async (archived = false) => {
-  const { data, error } = await supabase
+  const query = supabase
     .from("deals")
     .select("*")
     .eq("is_archived", archived)
-    .eq("status" as any, "approved")
     .order("created_at", { ascending: false });
+  
+  const { data, error } = await (query as any).eq("status", "approved");
   if (error) throw error;
   return data as DbDeal[];
 };
