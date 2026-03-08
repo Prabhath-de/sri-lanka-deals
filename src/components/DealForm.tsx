@@ -84,8 +84,18 @@ const DealForm = ({ deal, onSubmit, onCancel, isSubmitting }: DealFormProps) => 
       }
 
       await onSubmit({
-        ...values,
+        title: values.title,
+        business_name: values.business_name,
+        category: values.category,
+        city: values.city,
+        discount_percentage: values.discount_percentage,
         description: values.description || null,
+        location: values.location || null,
+        original_url: values.original_url || null,
+        image_url,
+        expiry_date: format(values.expiry_date, "yyyy-MM-dd"),
+        is_featured: values.is_featured,
+      });
         location: values.location || null,
         original_url: values.original_url || null,
         image_url,
