@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      deals: {
+        Row: {
+          business_name: string
+          category: string
+          city: string
+          created_at: string
+          description: string | null
+          discount_percentage: number
+          expiry_date: string
+          id: string
+          image_url: string | null
+          is_archived: boolean
+          is_featured: boolean
+          location: string | null
+          original_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          business_name: string
+          category: string
+          city: string
+          created_at?: string
+          description?: string | null
+          discount_percentage?: number
+          expiry_date: string
+          id?: string
+          image_url?: string | null
+          is_archived?: boolean
+          is_featured?: boolean
+          location?: string | null
+          original_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string
+          category?: string
+          city?: string
+          created_at?: string
+          description?: string | null
+          discount_percentage?: number
+          expiry_date?: string
+          id?: string
+          image_url?: string | null
+          is_archived?: boolean
+          is_featured?: boolean
+          location?: string | null
+          original_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
