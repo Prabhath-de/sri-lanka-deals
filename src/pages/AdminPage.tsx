@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Star, Archive, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, Archive, CheckCircle, XCircle, Clock, LogOut } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DealForm from "@/components/DealForm";
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/use-auth";
+import { useNavigate } from "react-router-dom";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -23,6 +25,8 @@ const statusBadge = (status: string) => {
 };
 
 const AdminPage = () => {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
   const { data: allDeals, isLoading } = useAdminDeals();
   const { data: pendingDeals } = usePendingDeals();
   const insertDeal = useInsertDeal();
@@ -170,9 +174,14 @@ const AdminPage = () => {
             <p className="text-sm text-muted-foreground">Manage deals, review submissions</p>
           </div>
           {!showForm && (
-            <Button onClick={() => { setEditingDeal(undefined); setShowForm(true); }} className="gap-2 bg-hero-gradient text-primary-foreground">
-              <Plus className="h-4 w-4" /> Add New Deal
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => { setEditingDeal(undefined); setShowForm(true); }} className="gap-2 bg-hero-gradient text-primary-foreground">
+                <Plus className="h-4 w-4" /> Add New Deal
+              </Button>
+              <Button variant="outline" onClick={async () => { await signOut(); navigate("/"); }} className="gap-2">
+                <LogOut className="h-4 w-4" /> Sign Out
+              </Button>
+            </div>
           )}
         </div>
 
