@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Search, Tag, LogIn, LogOut, User } from "lucide-react";
+import { Menu, X, Search, Tag, LogIn, LogOut } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import type { User as SupaUser } from "@supabase/supabase-js";
@@ -62,6 +63,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <Link to="/deals">
             <Button variant="outline" size="sm" className="gap-2">
               <Search className="h-4 w-4" />
