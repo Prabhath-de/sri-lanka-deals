@@ -34,13 +34,16 @@ const CategoriesPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(`/deals?category=${cat}`)}
-                className="group flex items-center gap-5 rounded-xl border border-border bg-card p-6 text-left transition-all hover:-translate-y-1 hover:shadow-deal-card-hover"
+                className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-border/60 bg-card p-6 text-left backdrop-blur-sm transition-shadow hover:shadow-deal-card-hover"
               >
-                <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-md transition-transform group-hover:scale-110`}>
+                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.06]`} />
+                <div className={`relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-lg ring-4 ring-background transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110`}>
                   {config.emoji}
                 </div>
-                <div>
+                <div className="relative">
                   <h3 className="font-heading text-lg font-semibold text-foreground">{cat}</h3>
                   <p className="text-sm text-muted-foreground">{count} active deal{count !== 1 ? "s" : ""}</p>
                 </div>

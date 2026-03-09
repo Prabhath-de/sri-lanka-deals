@@ -27,24 +27,27 @@ const CategoryGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
           {CATEGORIES.map((cat, i) => {
             const config = categoryConfig[cat];
             return (
               <motion.button
                 key={cat}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: i * 0.06 }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                whileHover={{ y: -6, scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(`/deals?category=${cat}`)}
-                className="group flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-deal-card-hover"
+                className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card p-6 backdrop-blur-sm transition-shadow hover:shadow-deal-card-hover"
               >
+                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.08]`} />
                 <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${config.gradient} text-2xl shadow-md transition-transform group-hover:scale-110`}
+                  className={`relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-lg ring-4 ring-background transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110`}
                 >
                   {config.emoji}
                 </div>
-                <span className="text-sm font-medium text-foreground">{cat}</span>
+                <span className="relative text-sm font-semibold tracking-wide text-foreground">{cat}</span>
               </motion.button>
             );
           })}
