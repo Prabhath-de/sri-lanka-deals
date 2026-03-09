@@ -30,6 +30,33 @@ export const fetchFeaturedDeals = async () => {
   return data as DbDeal[];
 };
 
+/** Fetch today's best deals – approved, non-archived, sorted by highest discount */
+export const fetchTodayBestDeals = async () => {
+  const today = new Date().toISOString().slice(0, 10);
+  const { data, error } = await (supabase
+    .from("deals")
+    .select("*")
+    .eq("is_archived", false) as any)
+    .eq("status", "approved")
+    .gte("created_at", today)
+    .order("discount_percentage", { ascending: false })
+    .limit(8);
+  if (error) throw error;
+  // Fallback: if no deals today, return latest high-discount deals
+  if (!data?.length) {
+    const { data: fallback, error: fbErr } = await (supabase
+      .from("deals")
+      .select("*")
+      .eq("is_archived", false) as any)
+      .eq("status", "approved")
+      .order("discount_percentage", { ascending: false })
+      .limit(8);
+    if (fbErr) throw fbErr;
+    return fallback as DbDeal[];
+  }
+  return data as DbDeal[];
+};
+
 /** Fetch all deals for admin (any status) */
 export const fetchAllDealsAdmin = async () => {
   const { data, error } = await supabase
