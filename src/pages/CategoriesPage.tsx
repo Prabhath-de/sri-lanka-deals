@@ -24,7 +24,7 @@ const CategoriesPage = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <h1 className="mb-8 font-heading text-3xl font-bold text-foreground">Deal Categories</h1>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat, i) => {
             const config = categoryConfig[cat];
             const count = deals?.filter((d) => d.category === cat).length || 0;
@@ -34,13 +34,15 @@ const CategoriesPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
                 onClick={() => navigate(`/deals?category=${cat}`)}
-                className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-border/60 bg-card p-6 text-left backdrop-blur-sm transition-shadow hover:shadow-deal-card-hover"
+                className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 text-left backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.06]`} />
-                <div className={`relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-lg ring-4 ring-background transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110`}>
+                {/* Subtle gradient glow */}
+                <div className={`absolute -left-4 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-gradient-to-br ${config.gradient} opacity-20 blur-2xl transition-opacity duration-300 group-hover:opacity-40`} />
+                
+                <div className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${config.gradient} text-2xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl`}>
                   {config.emoji}
                 </div>
                 <div className="relative">
