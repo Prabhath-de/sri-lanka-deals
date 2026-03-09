@@ -63,6 +63,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <Link to="/deals">
             <Button variant="outline" size="sm" className="gap-2">
               <Search className="h-4 w-4" />
