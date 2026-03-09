@@ -27,7 +27,7 @@ const CategoryGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
           {CATEGORIES.map((cat, i) => {
             const config = categoryConfig[cat];
             return (
@@ -36,18 +36,20 @@ const CategoryGrid = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                whileHover={{ y: -6, scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(`/deals?category=${cat}`)}
-                className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card p-6 backdrop-blur-sm transition-shadow hover:shadow-deal-card-hover"
+                className="group relative flex flex-col items-center gap-3 overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.08]`} />
+                {/* Subtle gradient glow behind icon */}
+                <div className={`absolute -top-4 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full bg-gradient-to-br ${config.gradient} opacity-20 blur-2xl transition-opacity duration-300 group-hover:opacity-40`} />
+                
                 <div
-                  className={`relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${config.gradient} text-3xl shadow-lg ring-4 ring-background transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110`}
+                  className={`relative flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${config.gradient} text-2xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl`}
                 >
                   {config.emoji}
                 </div>
-                <span className="relative text-sm font-semibold tracking-wide text-foreground">{cat}</span>
+                <span className="relative text-sm font-medium text-foreground">{cat}</span>
               </motion.button>
             );
           })}
