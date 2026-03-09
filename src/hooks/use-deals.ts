@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  fetchDeals, fetchFeaturedDeals, fetchAllDealsAdmin, fetchPendingDeals,
+  fetchDeals, fetchFeaturedDeals, fetchTodayBestDeals, fetchAllDealsAdmin, fetchPendingDeals,
   insertDeal, updateDeal, deleteDeal,
   DbDealInsert, DbDealUpdate,
 } from "@/lib/deals-api";
