@@ -17,6 +17,12 @@ export const useFeaturedDeals = () =>
     queryFn: fetchFeaturedDeals,
   });
 
+export const useTodayBestDeals = () =>
+  useQuery({
+    queryKey: ["deals", "today-best"],
+    queryFn: fetchTodayBestDeals,
+  });
+
 export const useAdminDeals = () =>
   useQuery({
     queryKey: ["deals", "admin"],
