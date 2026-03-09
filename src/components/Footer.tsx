@@ -1,52 +1,103 @@
-import { Tag } from "lucide-react";
+import { Tag, ArrowUpRight, Mail, Heart, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => (
-  <footer className="border-t border-border bg-card py-12">
-    <div className="container mx-auto px-4">
-      <div className="grid gap-8 md:grid-cols-3">
-        <div>
-          <Link to="/" className="mb-3 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-hero-gradient">
-              <Tag className="h-4 w-4 text-primary-foreground" />
+  <footer className="relative overflow-hidden border-t border-border bg-foreground/[0.03] dark:bg-card">
+    {/* Subtle background glow */}
+    <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+
+    <div className="container relative mx-auto px-4 pb-8 pt-16">
+      {/* Top section */}
+      <div className="grid gap-12 md:grid-cols-12">
+        {/* Brand */}
+        <div className="md:col-span-5">
+          <Link to="/" className="mb-4 inline-flex items-center gap-2.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-hero-gradient shadow-lg shadow-primary/20">
+              <Tag className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="font-heading text-lg font-bold text-foreground">
+            <span className="font-heading text-xl font-bold text-foreground">
               DealFinder <span className="text-primary">LK</span>
             </span>
           </Link>
-          <p className="text-sm text-muted-foreground">
-            Sri Lanka's leading platform for daily deals, discounts, and promotions.
+          <p className="mb-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            Sri Lanka's leading platform for discovering daily deals, exclusive discounts, and the best promotions across the island.
           </p>
-        </div>
-        <div>
-          <h4 className="mb-3 font-heading text-sm font-semibold text-foreground">Quick Links</h4>
-          <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-            <Link to="/deals" className="hover:text-primary">All Deals</Link>
-            <Link to="/categories" className="hover:text-primary">Categories</Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/submit"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
+            >
+              Submit a Deal <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
-        <div>
-          <h4 className="mb-3 font-heading text-sm font-semibold text-foreground">Categories</h4>
-          <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
-            {["Food", "Restaurants", "Hotels", "Fashion", "Electronics"].map((c) => (
-              <Link key={c} to={`/deals?category=${c}`} className="hover:text-primary">{c}</Link>
+
+        {/* Quick Links */}
+        <div className="md:col-span-3">
+          <h4 className="mb-4 font-heading text-xs font-bold uppercase tracking-widest text-foreground">
+            Quick Links
+          </h4>
+          <nav className="flex flex-col gap-3">
+            {[
+              { to: "/", label: "Home" },
+              { to: "/deals", label: "All Deals" },
+              { to: "/categories", label: "Categories" },
+              { to: "/submit", label: "Submit Deal" },
+              { to: "/auth", label: "Sign In" },
+            ].map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="group flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <span className="h-px w-3 bg-border transition-all group-hover:w-5 group-hover:bg-primary" />
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Categories */}
+        <div className="md:col-span-4">
+          <h4 className="mb-4 font-heading text-xs font-bold uppercase tracking-widest text-foreground">
+            Categories
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {["Food", "Restaurants", "Hotels", "Fashion", "Electronics", "Travel", "Supermarkets"].map((c) => (
+              <Link
+                key={c}
+                to={`/deals?category=${c}`}
+                className="rounded-lg border border-border/60 bg-card/50 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+              >
+                {c}
+              </Link>
             ))}
           </div>
         </div>
       </div>
-      <div className="mt-8 border-t border-border pt-8">
-        <div className="mx-auto mb-6 max-w-3xl rounded-2xl border border-white/20 bg-white/5 px-6 py-5 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
-          <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <span className="text-sm">🔒</span>
-            </div>
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              <span className="font-semibold text-foreground/70">Disclaimer</span> — All product names, trademarks, and registered trademarks are the property of their respective owners. All company, product, and service names used on this website are for identification purposes only. Use of these names, trademarks, and brands does not imply endorsement.
-            </p>
+
+      {/* Divider */}
+      <div className="my-8 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      {/* Disclaimer */}
+      <div className="mx-auto mb-8 max-w-3xl rounded-xl border border-border/40 bg-card/30 px-5 py-4 backdrop-blur-lg">
+        <div className="flex items-start gap-3">
+          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10">
+            <Shield className="h-3.5 w-3.5 text-primary" />
           </div>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            <span className="font-semibold text-foreground/60">Disclaimer</span> — All product names, trademarks, and registered trademarks are the property of their respective owners. All company, product, and service names used on this website are for identification purposes only. Use of these names, trademarks, and brands does not imply endorsement.
+          </p>
         </div>
-        <p className="text-center text-xs text-muted-foreground">
+      </div>
+
+      {/* Bottom bar */}
+      <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+        <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} DealFinder LK. All rights reserved.
+        </p>
+        <p className="flex items-center gap-1 text-xs text-muted-foreground">
+          Made with <Heart className="h-3 w-3 fill-deal-badge text-deal-badge" /> in Sri Lanka
         </p>
       </div>
     </div>
