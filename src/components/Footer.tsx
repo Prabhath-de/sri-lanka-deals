@@ -34,12 +34,16 @@ const Footer = () => (
           </div>
         </div>
       </div>
-      <div className="mt-8 border-t border-border pt-6">
-        <div className="mb-4 text-center">
-          <h5 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Privacy</h5>
-          <p className="mx-auto max-w-2xl text-xs leading-relaxed text-muted-foreground">
-            All product names, trademarks, and registered trademarks are the property of their respective owners. All company, product, and service names used on this website are for identification purposes only. Use of these names, trademarks, and brands does not imply endorsement.
-          </p>
+      <div className="mt-8 border-t border-border pt-8">
+        <div className="mx-auto mb-6 max-w-3xl rounded-2xl border border-white/20 bg-white/5 px-6 py-5 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+              <span className="text-sm">🔒</span>
+            </div>
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground/70">Disclaimer</span> — All product names, trademarks, and registered trademarks are the property of their respective owners. All company, product, and service names used on this website are for identification purposes only. Use of these names, trademarks, and brands does not imply endorsement.
+            </p>
+          </div>
         </div>
         <p className="text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} DealFinder LK. All rights reserved.
